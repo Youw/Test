@@ -26,5 +26,6 @@ jobs:
 
     - name: Print branch name
       run: |
+        echo "Testing Github Workflow"
         echo "Current branch name: ${{ github.ref_name }}"
         echo "Current build number: ${{ github.run_number }}"
