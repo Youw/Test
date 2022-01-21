@@ -17,21 +17,26 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Get PR Branch name
-      run: env
+      if: ${{ github.event_name == 'pull_request' }}
+      run: echo "BRANCH_NAME=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
       
+    - name: Get PUSH Branch name
+      if: ${{ github.event_name != 'pull_request' }}
+      run: echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV      
 
     - name: Print branch name
       run: |
-        echo "Current branch name: ${{ github.ref_name }}"
+        echo "Current branch name: ${{ env.BRANCH_NAME }}"
         echo "Current build number: ${{ github.run_number }}"
 
     - name: Add PR Comment
       uses: actions/github-script@v5
+      if: ${{ github.event_name == 'pull_request' }}
       with:
         script: |
           github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: 'Current build number: ${{ github.event.pull_request.head.ref }}'
+            body: 'Current build number: ${{ env.BRANCH_NAME }}'
           })
