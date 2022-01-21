@@ -12,21 +12,21 @@ on:
 
 jobs:
  build:
-  runs-on: ubuntu-latest
+  runs-on: windows-2019
   steps:
     - uses: actions/checkout@v2
     
     - name: Get PR Branch name
       if: ${{ github.event_name == 'pull_request' }}
-      run: echo "BRANCH_NAME=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+      run: echo "BRANCH_NAME=${{ github.event.pull_request.head.ref }}" >> $Env:GITHUB_ENV
       
     - name: Get PUSH Branch name
       if: ${{ github.event_name != 'pull_request' }}
-      run: echo "BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV      
+      run: echo "BRANCH_NAME=${{ github.ref_name }}" >> $Env:GITHUB_ENV
 
     - name: Print branch name
       run: |
-        echo "Current branch name: ${{ env.BRANCH_NAME }}"
+        echo "Current branch name: $Env:BRANCH_NAME"
         echo "Current build number: ${{ github.run_number }}"
 
     - name: Add PR Comment
