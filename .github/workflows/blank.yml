@@ -14,11 +14,14 @@ jobs:
  build:
   runs-on: windows-2019
   steps:
-    - uses: actions/checkout@v2
+#     - uses: actions/checkout@v2
     
     - name: Get PR Branch name
       if: ${{ github.event_name == 'pull_request' }}
-      run: echo "BRANCH_NAME=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+      run: |
+        echo "$GITHUB_ENV"
+        dir env:
+        echo "BRANCH_NAME=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
       
     - name: Get PUSH Branch name
       if: ${{ github.event_name != 'pull_request' }}
