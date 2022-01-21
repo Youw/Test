@@ -26,7 +26,7 @@ jobs:
 
     - name: Print branch name
       run: |
-        echo "Current branch name: $Env:BRANCH_NAME"
+        echo "Current branch name: ${{ env.BRANCH_NAME }}"
         echo "Current build number: ${{ github.run_number }}"
 
     - name: Add PR Comment
