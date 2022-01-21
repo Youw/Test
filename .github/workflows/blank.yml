@@ -18,10 +18,7 @@ jobs:
     
     - name: Get PR Branch name
       if: ${{ github.event_name == 'pull_request' }}
-      run: |
-        echo "GITHUB_ENV = $Env:GITHUB_ENV"
-        dir env:
-        echo "BRANCH_NAME=${{ github.event.pull_request.head.ref }}" >> $Env:GITHUB_ENV
+      run: echo "BRANCH_NAME=${{ github.event.pull_request.head.ref }}" >> $Env:GITHUB_ENV
       
     - name: Get PUSH Branch name
       if: ${{ github.event_name != 'pull_request' }}
