@@ -14,9 +14,9 @@ jobs:
  prep-build:
   runs-on: windows-2019
   env: 
-      BRANCH_NAME: github.event_name == 'pull_request' && github.event.pull_request.head.ref || github.ref_name
-      COMMIT_HASH: github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha
-      RELEASE_BUILD: startsWith(github.ref, 'refs/tags/try') && true || false
+      BRANCH_NAME: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || github.ref_name }}
+      COMMIT_HASH: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+      RELEASE_BUILD: ${{ startsWith(github.ref, 'refs/tags/try') && true || false }}
   outputs:
     branch_name: ${{ env.BRANCH_NAME }}
     commit_hash: ${{ env.COMMIT_HASH }}
