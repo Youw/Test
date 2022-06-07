@@ -28,7 +28,7 @@ jobs:
     - name: Ensure build env
       id: build_env
       env:
-        ARTIFACTS_PATH: ${{ env.RELEASE_BUILD == true && "release/${{ env.BRANCH_NAME }}" || "${{ env.BRANCH_NAME }}/${{ github.run_number }}" }}
+        ARTIFACTS_PATH: ${{ env.RELEASE_BUILD == true && "release/"env.BRANCH_NAME || env.BRANCH_NAME/github.run_number }}
       run: |
         echo "BRANCH_NAME: ${{ env.BRANCH_NAME }}"
         echo "COMMIT_HASH: ${{ env.COMMIT_HASH }}"
