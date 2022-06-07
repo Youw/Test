@@ -57,4 +57,5 @@ jobs:
         echo "branch_name: ${{ needs.prep-build.outputs.branch_name }}"
         echo "commit_hash: ${{ needs.prep-build.outputs.commit_hash }}"
         echo "release_build: ${{ needs.prep-build.outputs.release_build }}"
+        echo "artifacts_path: ${{ needs.prep-build.outputs.artifacts_path }}"
     
