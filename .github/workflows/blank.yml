@@ -21,14 +21,20 @@ jobs:
     branch_name: ${{ env.BRANCH_NAME }}
     commit_hash: ${{ env.COMMIT_HASH }}
     release_build: ${{ env.RELEASE_BUILD }}
+    artifacts_path: ${{ steps.build_env.outputs.branch_name }}
   steps:
     - uses: actions/checkout@v2
    
-    - name: Print build env
+    - name: Ensure build env
+      id: build_env
+      env:
+        ARTIFACTS_PATH: ${{ env.RELEASE_BUILD == true && "release/${{ env.BRANCH_NAME }}" || "${{ env.BRANCH_NAME }}/${{ github.run_number }}" }}
       run: |
         echo "BRANCH_NAME: ${{ env.BRANCH_NAME }}"
         echo "COMMIT_HASH: ${{ env.COMMIT_HASH }}"
         echo "RELEASE_BUILD: ${{ env.RELEASE_BUILD }}"
+        echo "ARTIFACTS_PATH: ${{ env.ARTIFACTS_PATH }}"
+        echo "::set-output name=artifacts_path::${{ env.ARTIFACTS_PATH }}"
 
     - name: Add PR Comment
       uses: actions/github-script@v5
