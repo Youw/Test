@@ -24,6 +24,8 @@ jobs:
     artifacts_path: ${{ steps.build_env.outputs.artifacts_path }}
   steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
    
     - name: Ensure build env
       id: build_env
@@ -35,6 +37,8 @@ jobs:
         echo "RELEASE_BUILD: ${{ env.RELEASE_BUILD }}"
         echo "ARTIFACTS_PATH: ${{ env.ARTIFACTS_PATH }}"
         echo "::set-output name=artifacts_path::${{ env.ARTIFACTS_PATH }}"
+        git show -s ${{ github.ref }}
+        git describe
 
     - name: Add PR Comment
       uses: actions/github-script@v5
