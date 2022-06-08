@@ -37,7 +37,7 @@ jobs:
         echo "RELEASE_BUILD: ${{ env.RELEASE_BUILD }}"
         echo "ARTIFACTS_PATH: ${{ env.ARTIFACTS_PATH }}"
         echo "::set-output name=artifacts_path::${{ env.ARTIFACTS_PATH }}"
-        git show -s ${{ github.ref }}
+        git fetch --tags --force
         git describe
 
     - name: Add PR Comment
