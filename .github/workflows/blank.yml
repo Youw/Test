@@ -22,6 +22,7 @@ jobs:
     commit_hash: ${{ env.COMMIT_HASH }}
     release_build: ${{ env.RELEASE_BUILD }}
     artifacts_path: ${{ steps.build_env.outputs.artifacts_path }}
+    is_release_build: ${{ env.RELEASE_BUILD == 'true' }}
   steps:
     - uses: actions/checkout@v2
       with:
@@ -63,3 +64,11 @@ jobs:
         echo "release_build: ${{ needs.prep-build.outputs.release_build }}"
         echo "artifacts_path: ${{ needs.prep-build.outputs.artifacts_path }}"
     
+ print-rel-info:
+  runs-on: windows-2019
+  if: ${{ needs.prep-build.outputs.is_release_build }}
+  needs: prep-build
+  steps:
+    - name: Verify env
+      run: |
+        echo "is_release_build: ${{ needs.prep-build.outputs.is_release_build }}"
